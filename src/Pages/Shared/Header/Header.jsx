@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Image } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,7 +11,14 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
 
 const Header = () => {
-    const {user} = useContext(AuthContext);
+    const {user, logOut} = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+        .then( () => {})
+        .catch(error =>console.error(error))
+    }
+
     return (
         <div>
             <Navbar className='mb-4' collapseOnSelect expand="lg" bg="light" variant="light">
@@ -34,11 +42,24 @@ const Header = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#deets">{user?.displayName}</Nav.Link>
+                        <Nav.Link href="#deets">{}</Nav.Link>
                         <Nav.Link eventKey={2} href="#memes">
+                            {
+                                user?.uid ? 
+                                <>
+                                    <span>{user?.displayName}</span>
+                                    <Button variant='info' onClick={handleLogOut}>Log Out</Button>
+                                </>
+                                
+                                : 
+                                <>
+                                    <Link to='/login'>Login</Link>
+                                    <Link to='/register'>Register</Link>
+                                </>
+                            }
                         {
-                           user.photoURL ? 
-                            <Image style={{height: '30px'}} roundedCircle src={user.photoURL}></Image>
+                           user?.photoURL ? 
+                            <Image style={{height: '30px'}} referrerPolicy='no-referrer' roundedCircle src={user.photoURL}></Image>
                              : 
                             <FaUser></FaUser>
                          }
