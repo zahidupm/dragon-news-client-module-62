@@ -42,9 +42,8 @@ const Header = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#deets">{}</Nav.Link>
-                        <Nav.Link eventKey={2} href="#memes">
-                            {
+                        <>
+                        {
                                 user?.uid ? 
                                 <>
                                     <span>{user?.displayName}</span>
@@ -57,9 +56,12 @@ const Header = () => {
                                     <Link to='/register'>Register</Link>
                                 </>
                             }
+                        </>
+                        <Nav.Link eventKey={2} href="#memes">
+                            
                         {
                            user?.photoURL ? 
-                            <Image style={{height: '30px'}} referrerPolicy='no-referrer' roundedCircle src={user.photoURL}></Image>
+                            <Image style={{height: '30px'}} referrerPolicy='no-referrer' roundedCircle src={user?.photoURL}></Image>
                              : 
                             <FaUser></FaUser>
                          }
