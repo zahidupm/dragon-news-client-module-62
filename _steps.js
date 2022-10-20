@@ -13,3 +13,10 @@
 *** ROUTER SETUP ***
 1. 
 */
+
+/* 
+*** PRIVATE ROUTE ***
+1. only allow authenticated user to visit the route
+2. 
+3. redirect user to the route they want ot go before login
+*/
