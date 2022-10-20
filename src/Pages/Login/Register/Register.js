@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Register = () => {
     const [error, setError] = useState('');
+    const [accepted, setAccepted] = useState(false);
     const {createUser} = useContext(AuthContext);
 
     const handleSubmit = (e) => {
@@ -29,6 +31,10 @@ const Register = () => {
         })
     }
 
+    const handleAccepted = (e) => {
+        setAccepted(e.target.checked);
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -50,7 +56,15 @@ const Register = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control name='password' type="password" placeholder="Password" required />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check 
+                onClick={handleAccepted}
+                type="checkbox" 
+                label={<>Accept <Link to='/terms'>terms and condition</Link></>} />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" disabled={!accepted}>
                 Register
             </Button>
             <Form.Text className="text-danger">
